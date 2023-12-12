@@ -5,13 +5,14 @@ import {
 } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { colors } from "../ui-config";
 import AppButton from "./buttons/AppButton";
 import { AppText } from "./texts";
 
 interface ICustomHeader {
   route: Route<string>;
   back?: { title: string };
-  option: NativeStackNavigationOptions;
+  options: NativeStackNavigationOptions;
   navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
 }
 
@@ -22,11 +23,11 @@ const CustomHeader = (props: ICustomHeader) => {
         onPress={() => {
           props.navigation.goBack();
           // console.log(props.back);
-          // console.log(props.option);
+          // console.log(props.options);
         }}
         label="Back"
         btnStyle={styles.btnBack}
-        lblStyle={{ color: "white" }}
+        lblStyle={{ color: colors.white }}
       />
 
       <View style={styles.titleContainer}>
@@ -56,8 +57,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#264653",
     justifyContent: "space-between",
+    backgroundColor: colors.darkBlue,
   },
   btnBack: {
     width: 35,
@@ -70,6 +71,6 @@ const styles = StyleSheet.create({
   },
   lblTitleStyle: {
     fontSize: 20,
-    color: "#ffc300",
+    color: colors.yellow,
   },
 });

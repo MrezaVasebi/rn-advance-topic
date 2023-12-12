@@ -67,7 +67,7 @@ function FinalNav() {
               <CustomHeader
                 back={back}
                 route={route}
-                option={options}
+                options={options}
                 navigation={navigation}
               />
             ),
