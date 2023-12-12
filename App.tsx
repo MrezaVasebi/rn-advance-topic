@@ -1,4 +1,5 @@
 import { useFonts } from "expo-font";
+import { StatusBar, View } from "react-native";
 import { FinalNav } from "./screens";
 
 export default function App() {
@@ -10,5 +11,11 @@ export default function App() {
     return null;
   }
 
-  return <FinalNav />;
+  return (
+    <View style={{ flex: 1 }}>
+      <StatusBar hidden />
+
+      <FinalNav />
+    </View>
+  );
 }

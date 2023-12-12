@@ -1,14 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { RootScreen } from "../../components";
+import { AppText } from "../../components/texts";
 
 const Animation = () => {
   return (
-    <View>
-      <Text>Animation</Text>
-    </View>
+    <RootScreen rootStyle={styles.rootStyle}>
+      <AppText label="Animation" />
+    </RootScreen>
   );
 };
 
 export default Animation;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  rootStyle: {
+    padding: 20,
+  },
+});

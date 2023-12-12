@@ -9,6 +9,7 @@ import { AppText } from "../texts";
 interface IAppButton {
   label: string;
   btnStyle?: {};
+  lblStyle?: {};
 }
 
 const AppButton = (props: IAppButton & TouchableOpacityProps) => {
@@ -18,7 +19,7 @@ const AppButton = (props: IAppButton & TouchableOpacityProps) => {
       onPress={props.onPress}
       style={{ ...styles.btnStyle, ...props.btnStyle }}
     >
-      <AppText label={props.label} />
+      <AppText lblStyle={{ ...props.lblStyle }} label={props.label} />
     </TouchableOpacity>
   );
 };
