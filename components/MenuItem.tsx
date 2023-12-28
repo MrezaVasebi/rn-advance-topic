@@ -4,6 +4,7 @@ import AppButton from "./buttons/AppButton";
 
 interface IMenuItem {
   label: string;
+  rootStyle?: object;
 }
 
 const MenuItem = (props: TouchableOpacityProps & IMenuItem) => {
@@ -11,7 +12,7 @@ const MenuItem = (props: TouchableOpacityProps & IMenuItem) => {
     <AppButton
       label={props.label}
       onPress={props.onPress}
-      btnStyle={styles.btnStyle}
+      btnStyle={{ ...styles.btnStyle, ...props.rootStyle }}
     />
   );
 };

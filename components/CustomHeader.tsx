@@ -34,16 +34,16 @@ const CustomHeader = (props: ICustomHeader) => {
         <AppText label={props.route.name} lblStyle={styles.lblTitleStyle} />
       </View>
 
-      {/* <AppButton
+      <AppButton
         onPress={() => {
           props.navigation.goBack();
           // console.log(props.back);
           // console.log(props.option);
         }}
-        label="Right"
+        label=""
         btnStyle={styles.btnBack}
         lblStyle={{ color: "white" }}
-      /> */}
+      />
     </View>
   );
 };

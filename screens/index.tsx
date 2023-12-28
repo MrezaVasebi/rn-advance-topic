@@ -1,5 +1,5 @@
 import Main from "./Main";
-import Animation from "./animation/Animation";
+import Firebase from "./firebase/Firebase";
 import FinalNav from "./nav/FinalNav";
 
-export { Animation, FinalNav, Main };
+export { FinalNav, Firebase as FirebaseApp, Main };

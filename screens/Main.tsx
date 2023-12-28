@@ -7,7 +7,7 @@ import { AppText } from "../components/texts";
 import { colors } from "../ui-config";
 
 const Main = () => {
-  let routes = [{ routeName: "Animation", lbl: "Animation" }];
+  let routes = [{ routeName: "Firebase", lbl: "Firebase" }];
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
@@ -22,6 +22,7 @@ const Main = () => {
             <MenuItem
               key={index}
               label={el.lbl}
+              rootStyle={{ marginBottom: 15 }}
               onPress={() => navigation.navigate(el.routeName)}
             />
           );
