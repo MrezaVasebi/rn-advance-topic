@@ -42,7 +42,7 @@ const CustomHeader = (props: ICustomHeader) => {
         }}
         label=""
         btnStyle={styles.btnBack}
-        lblStyle={{ color: "white" }}
+        lblStyle={{ color: colors.white }}
       />
     </View>
   );
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkBlue,
   },
   btnBack: {
-    width: 35,
-    height: 20,
-    marginRight: 10,
+    borderWidth: 0,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
   },
   titleContainer: {
     flex: 1,

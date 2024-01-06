@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
   TouchableOpacityProps,
@@ -7,32 +8,38 @@ import {
 import { colors } from "../../ui-config";
 import { AppText } from "../texts";
 
-interface IAppButton {
+interface ILoadingButton {
   label: string;
-  btnStyle?: {};
-  lblStyle?: {};
+  loading: boolean;
+  btnStyle?: object;
 }
 
-const AppButton = (props: IAppButton & TouchableOpacityProps) => {
+const LoadingButton = (props: TouchableOpacityProps & ILoadingButton) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.5}
+      disabled={props.disabled}
       onPress={props.onPress}
       style={{ ...styles.btnStyle, ...props.btnStyle }}
     >
-      <AppText lblStyle={{ ...props.lblStyle }} label={props.label} />
+      {props.loading ? (
+        <ActivityIndicator size={"small"} color={colors.purple} />
+      ) : (
+        <AppText label={props.label} />
+      )}
     </TouchableOpacity>
   );
 };
 
-export default AppButton;
+export default LoadingButton;
 
 const styles = StyleSheet.create({
   btnStyle: {
     borderWidth: 1,
     borderRadius: 10,
     paddingVertical: 10,
+    alignItems: "center",
     paddingHorizontal: 15,
+    justifyContent: "center",
     borderColor: colors.purple,
   },
 });

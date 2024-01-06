@@ -22,6 +22,7 @@ export default MenuItem;
 const styles = StyleSheet.create({
   btnStyle: {
     elevation: 2,
+    borderWidth: 0,
     borderRadius: 10,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
