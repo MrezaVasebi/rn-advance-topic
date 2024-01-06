@@ -1,15 +1,11 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { AppText } from "../../../components/texts";
-import { colors } from "../../../ui-config";
+import { AppText } from "../../components/texts";
+import { colors } from "../../ui-config";
 
-import {
-  AppButton,
-  CheckBox,
-  LoadingButton,
-} from "../../../components/buttons";
-import { useAuth } from "../logic";
-import InputField from "./InputField";
+import { AppButton, CheckBox, LoadingButton } from "../../components/buttons";
+import { InputField } from "./components";
+import { useAuth } from "./logic";
 
 const Auth = () => {
   const hooks = useAuth();
