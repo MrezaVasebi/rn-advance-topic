@@ -1,33 +1,32 @@
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { CustomHeader, RootScreen } from "../../components";
+import { RootScreen } from "../../components";
 import Main from "../Main";
-import { Firebase, UserDetails, UsersList } from "../firebase";
+import { KindOfNavigation } from "../kind_of_navigation";
 
-type RootStackParamList = {
-  Main: undefined;
-  Firebase: undefined;
-  UsersList: undefined;
-  UserDetails: {
-    user: object;
-  };
-};
+// type RootStackParamList = {
+//   Main: undefined;
+//   Firebase: undefined;
+//   UsersList: undefined;
+//   UserDetails: {
+//     user: object;
+//   };
+// };
 
-export type PropsUserDetails = NativeStackScreenProps<
-  RootStackParamList,
-  "UserDetails"
->;
+// export type PropsUserDetails = NativeStackScreenProps<
+//   RootStackParamList,
+//   "UserDetails"
+// >;
 
-export type PropsUsersList = NativeStackScreenProps<
-  RootStackParamList,
-  "UsersList"
->;
+// export type PropsUsersList = NativeStackScreenProps<
+//   RootStackParamList,
+//   "UsersList"
+// >;
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+// const RootStack = createNativeStackNavigator<RootStackParamList>();
+
+const RootStack = createNativeStackNavigator();
 
 function FinalNav() {
   return (
@@ -49,41 +48,41 @@ function FinalNav() {
             options={{ headerShown: false }}
           />
 
-          <RootStack.Screen
+          {/* <RootStack.Screen
             name="Firebase"
             component={Firebase}
             options={{
               headerShown: true,
-              // title: "Animation",
-              // headerTintColor: "brown",
-              // headerTitleAlign: "center",
-              // headerStyle: { backgroundColor: "green" },
-              // headerTitleStyle: { fontWeight: "bold" },
+              title: "Animation",
+              headerTintColor: "brown",
+              headerTitleAlign: "center",
+              headerStyle: { backgroundColor: "green" },
+              headerTitleStyle: { fontWeight: "bold" },
 
-              // headerTitle: () => (
-              //   <AppText
-              //     label="Animation"
-              //     lblStyle={{ color: "black", fontSize: 20 }}
-              //   />
-              // ),
+              headerTitle: () => (
+                <AppText
+                  label="Animation"
+                  lblStyle={{ color: "black", fontSize: 20 }}
+                />
+              ),
 
-              // headerBackground: () => (
-              //   <View style={{ height: 45, backgroundColor: "red",}}>
-              //     <AppText label="Hi" />
-              //   </View>
-              // ),
+              headerBackground: () => (
+                <View style={{ height: 45, backgroundColor: "red",}}>
+                  <AppText label="Hi" />
+                </View>
+              ),
 
-              // headerLeft: () => (
-              //   <View style={{ marginRight: 10 }}>
-              //     <AppText label="Left" />
-              //   </View>
-              // ),
+              headerLeft: () => (
+                <View style={{ marginRight: 10 }}>
+                  <AppText label="Left" />
+                </View>
+              ),
 
-              // headerRight: () => (
-              //   <View>
-              //     <AppText label="Right" />
-              //   </View>
-              // ),
+              headerRight: () => (
+                <View>
+                  <AppText label="Right" />
+                </View>
+              ),
 
               header: ({ navigation, options, route, back }) => (
                 <CustomHeader
@@ -95,9 +94,9 @@ function FinalNav() {
                 />
               ),
             }}
-          />
+          /> */}
 
-          <RootStack.Screen
+          {/* <RootStack.Screen
             name="UsersList"
             component={UsersList}
             options={{
@@ -112,29 +111,29 @@ function FinalNav() {
                 />
               ),
             }}
-          />
+          /> */}
 
-          <RootStack.Screen
+          {/* <RootStack.Screen
             name="UserDetails"
             component={UserDetails}
             initialParams={{ user: {} }}
             options={({ navigation, route }) => ({
               headerShown: true,
-              // headerTitle: ({ children, tintColor }) => (
-              //   <AppText label={route.name} lblStyle={{ marginLeft: 10 }} />
-              // ),
+              headerTitle: ({ children, tintColor }) => (
+                <AppText label={route.name} lblStyle={{ marginLeft: 10 }} />
+              ),
 
-              // headerLeft({ canGoBack, label, tintColor }) {
-              //   return null;
-              // },
+              headerLeft({ canGoBack, label, tintColor }) {
+                return null;
+              },
 
-              // headerRight({ canGoBack, tintColor }) {
-              //   return (
-              //     <TouchableOpacity>
-              //       <AppText label="Right" />
-              //     </TouchableOpacity>
-              //   );
-              // },
+              headerRight({ canGoBack, tintColor }) {
+                return (
+                  <TouchableOpacity>
+                    <AppText label="Right" />
+                  </TouchableOpacity>
+                );
+              },
 
               header({ navigation, options, route, back }) {
                 return (
@@ -149,6 +148,12 @@ function FinalNav() {
                 );
               },
             })}
+          />  */}
+
+          <RootStack.Screen
+            name="KindOfNavigation"
+            component={KindOfNavigation}
+            options={{ headerShown: false }}
           />
         </RootStack.Navigator>
       </NavigationContainer>

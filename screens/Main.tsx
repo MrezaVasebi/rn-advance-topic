@@ -7,7 +7,7 @@ import { AppText } from "../components/texts";
 import { colors } from "../ui-config";
 
 const Main = () => {
-  let routes = [{ routeName: "Firebase", lbl: "Firebase" }];
+  let routes = [{ routeName: "KindOfNavigation", lbl: "Kind Of Navigation" }];
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
