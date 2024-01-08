@@ -1,17 +1,39 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack";
 import * as React from "react";
 import { CustomHeader, RootScreen } from "../../components";
 import Main from "../Main";
-import { Firebase } from "../firebase";
+import { Firebase, UserDetails, UsersList } from "../firebase";
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+  Main: undefined;
+  Firebase: undefined;
+  UsersList: undefined;
+  UserDetails: {
+    user: object;
+  };
+};
+
+export type PropsUserDetails = NativeStackScreenProps<
+  RootStackParamList,
+  "UserDetails"
+>;
+
+export type PropsUsersList = NativeStackScreenProps<
+  RootStackParamList,
+  "UsersList"
+>;
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function FinalNav() {
   return (
     <RootScreen>
       <NavigationContainer>
-        <Stack.Navigator
+        <RootStack.Navigator
           initialRouteName="Main"
           screenOptions={
             {
@@ -21,13 +43,13 @@ function FinalNav() {
             }
           }
         >
-          <Stack.Screen
+          <RootStack.Screen
             name="Main"
             component={Main}
             options={{ headerShown: false }}
           />
 
-          <Stack.Screen
+          <RootStack.Screen
             name="Firebase"
             component={Firebase}
             options={{
@@ -69,11 +91,66 @@ function FinalNav() {
                   route={route}
                   options={options}
                   navigation={navigation}
+                  onPressRightButton={() => {}}
                 />
               ),
             }}
           />
-        </Stack.Navigator>
+
+          <RootStack.Screen
+            name="UsersList"
+            component={UsersList}
+            options={{
+              headerShown: true,
+              header: ({ navigation, options, route, back }) => (
+                <CustomHeader
+                  back={back}
+                  route={route}
+                  options={options}
+                  navigation={navigation}
+                  onPressRightButton={() => {}}
+                />
+              ),
+            }}
+          />
+
+          <RootStack.Screen
+            name="UserDetails"
+            component={UserDetails}
+            initialParams={{ user: {} }}
+            options={({ navigation, route }) => ({
+              headerShown: true,
+              // headerTitle: ({ children, tintColor }) => (
+              //   <AppText label={route.name} lblStyle={{ marginLeft: 10 }} />
+              // ),
+
+              // headerLeft({ canGoBack, label, tintColor }) {
+              //   return null;
+              // },
+
+              // headerRight({ canGoBack, tintColor }) {
+              //   return (
+              //     <TouchableOpacity>
+              //       <AppText label="Right" />
+              //     </TouchableOpacity>
+              //   );
+              // },
+
+              header({ navigation, options, route, back }) {
+                return (
+                  <CustomHeader
+                    back={back}
+                    route={route}
+                    options={options}
+                    rightLabel="Right"
+                    navigation={navigation}
+                    onPressRightButton={() => {}}
+                  />
+                );
+              },
+            })}
+          />
+        </RootStack.Navigator>
       </NavigationContainer>
     </RootScreen>
   );

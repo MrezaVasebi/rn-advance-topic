@@ -10,23 +10,35 @@ import AppButton from "./buttons/AppButton";
 import { AppText } from "./texts";
 
 interface ICustomHeader {
+  rightLabel?: string;
   route: Route<string>;
   back?: { title: string };
+  onPressRightButton: () => void;
   options: NativeStackNavigationOptions;
   navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
 }
 
 const CustomHeader = (props: ICustomHeader) => {
+  const handleOnPressRight = () => {
+    // props.navigation.goBack();
+    // console.log(props.back);
+    // console.log(props.option);
+
+    props.onPressRightButton();
+  };
+
+  const handleOnPressLeft = () => {
+    props.navigation.goBack();
+    // console.log(props.back);
+    // console.log(props.options);
+  };
+
   return (
     <View style={styles.headerStyle}>
       <AppButton
-        onPress={() => {
-          props.navigation.goBack();
-          // console.log(props.back);
-          // console.log(props.options);
-        }}
         label="Back"
         btnStyle={styles.btnBack}
+        onPress={handleOnPressLeft}
         lblStyle={{ color: colors.white }}
       />
 
@@ -35,13 +47,9 @@ const CustomHeader = (props: ICustomHeader) => {
       </View>
 
       <AppButton
-        onPress={() => {
-          props.navigation.goBack();
-          // console.log(props.back);
-          // console.log(props.option);
-        }}
-        label=""
         btnStyle={styles.btnBack}
+        onPress={handleOnPressRight}
+        label={props.rightLabel ?? ""}
         lblStyle={{ color: colors.white }}
       />
     </View>
