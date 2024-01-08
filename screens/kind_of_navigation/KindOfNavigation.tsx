@@ -6,25 +6,25 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { AppText } from "../../components/texts";
 import { colors } from "../../ui-config";
-import TopHeader from "./TopHeader";
+import StackNavigation from "./StackNavigation";
 
 type RootStackParamList = {
-  TopHeader: undefined;
+  StackNavigation: undefined;
 };
 
-export type PropsTopHeader = NativeStackScreenProps<
+export type PropsStackNavigation = NativeStackScreenProps<
   RootStackParamList,
-  "TopHeader"
+  "StackNavigation"
 >;
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const KindOfNavigation = () => {
   return (
-    <RootStack.Navigator initialRouteName="TopHeader">
+    <RootStack.Navigator initialRouteName="StackNavigation">
       <RootStack.Screen
-        name="TopHeader"
-        component={TopHeader}
+        name="StackNavigation"
+        component={StackNavigation}
         options={({ navigation, route }) => ({
           headerShown: true,
 

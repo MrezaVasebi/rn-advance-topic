@@ -1,4 +1,4 @@
 import KindOfNavigation from "./KindOfNavigation";
-import TopHeader from "./TopHeader";
+import StackNavigation from "./StackNavigation";
 
-export { KindOfNavigation, TopHeader };
+export { KindOfNavigation, StackNavigation };

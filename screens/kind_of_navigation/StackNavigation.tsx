@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { RootScreen } from "../../components";
 import { AppText } from "../../components/texts";
-import { PropsTopHeader } from "./KindOfNavigation";
+import { PropsStackNavigation } from "./KindOfNavigation";
 
-const TopHeader = ({ navigation, route }: PropsTopHeader) => {
+const StackNavigation = ({ navigation, route }: PropsStackNavigation) => {
   // useEffect(() => {
   //   navigation.setOptions({
   //     headerRight: ({ canGoBack, tintColor }) => {
@@ -24,7 +24,7 @@ const TopHeader = ({ navigation, route }: PropsTopHeader) => {
   );
 };
 
-export default TopHeader;
+export default StackNavigation;
 
 const styles = StyleSheet.create({
   root: {
