@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { RootScreen } from "../../components";
 import { AppText } from "../../components/texts";
 import { PropsStackNavigation } from "./KindOfNavigation";
@@ -20,6 +20,13 @@ const StackNavigation = ({ navigation, route }: PropsStackNavigation) => {
   return (
     <RootScreen rootStyle={styles.root}>
       <AppText label="Stack Navigation" lblStyle={{ fontSize: 20 }} />
+
+      <TouchableOpacity
+        style={styles.btnStyle}
+        onPress={() => navigation.navigate("TabNavigation")}
+      >
+        <AppText label="Go to Tab Navigation" />
+      </TouchableOpacity>
     </RootScreen>
   );
 };
@@ -31,5 +38,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  btnStyle: {
+    padding: 10,
+    marginTop: 20,
+    borderWidth: 1,
+    borderRadius: 10,
   },
 });

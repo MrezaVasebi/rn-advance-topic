@@ -7,9 +7,11 @@ import { StyleSheet } from "react-native";
 import { AppText } from "../../components/texts";
 import { colors } from "../../ui-config";
 import StackNavigation from "./StackNavigation";
+import TabNavigation from "./TabNavigation";
 
 type RootStackParamList = {
   StackNavigation: undefined;
+  TabNavigation: undefined;
 };
 
 export type PropsStackNavigation = NativeStackScreenProps<
@@ -58,12 +60,13 @@ const KindOfNavigation = () => {
 
           // headerTitleAlign: "center",
 
-          headerTitle(props) {
+          headerTitle({ children, tintColor }) {
             return <AppText label={"Stack Navigation"} />;
           },
 
           // headerTintColor: colors.green,
-          // header(props) {
+
+          // header({ navigation, options, route, back }) {
           //   return (
           //     <View style={styles.headerStyle}>
           //       <AppText label="Left" />
@@ -87,6 +90,14 @@ const KindOfNavigation = () => {
           //   fontWeight: "bold",
           // },
         })}
+      />
+
+      <RootStack.Screen
+        name="TabNavigation"
+        component={TabNavigation}
+        options={{
+          headerShown: false,
+        }}
       />
     </RootStack.Navigator>
   );
