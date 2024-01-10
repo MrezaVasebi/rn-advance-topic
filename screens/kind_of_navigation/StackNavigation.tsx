@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { RootScreen } from "../../components";
+import { AppButton } from "../../components/buttons";
 import { AppText } from "../../components/texts";
 import { PropsStackNavigation } from "./KindOfNavigation";
 
@@ -20,13 +21,11 @@ const StackNavigation = ({ navigation, route }: PropsStackNavigation) => {
   return (
     <RootScreen rootStyle={styles.root}>
       <AppText label="Stack Navigation" lblStyle={{ fontSize: 20 }} />
-
-      <TouchableOpacity
-        style={styles.btnStyle}
-        onPress={() => navigation.navigate("TabNavigation")}
-      >
-        <AppText label="Go to Tab Navigation" />
-      </TouchableOpacity>
+      <AppButton
+        label="Go to Drawer Navigation"
+        btnStyle={{ marginTop: 10 }}
+        onPress={() => navigation.navigate("DrawerNavigation")}
+      />
     </RootScreen>
   );
 };

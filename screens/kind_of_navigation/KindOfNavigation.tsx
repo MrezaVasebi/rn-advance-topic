@@ -6,12 +6,13 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { AppText } from "../../components/texts";
 import { colors } from "../../ui-config";
+import DrawerNavigation from "./DrawerNavigation";
 import StackNavigation from "./StackNavigation";
-import TabNavigation from "./TabNavigation";
 
 type RootStackParamList = {
   StackNavigation: undefined;
-  TabNavigation: undefined;
+  // TabNavigation: undefined;
+  DrawerNavigation: undefined;
 };
 
 export type PropsStackNavigation = NativeStackScreenProps<
@@ -93,8 +94,8 @@ const KindOfNavigation = () => {
       />
 
       <RootStack.Screen
-        name="TabNavigation"
-        component={TabNavigation}
+        name="DrawerNavigation"
+        component={DrawerNavigation}
         options={{
           headerShown: false,
         }}
