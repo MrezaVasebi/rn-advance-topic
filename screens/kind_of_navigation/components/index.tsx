@@ -1,3 +1,5 @@
-import TabView from "./TabView";
+import CustomTabNavigation from "./CustomTabNavigation";
+import MainView from "./MainView";
+import CustomDrawerNavigation from "./CustomDrawerNavigation";
 
-export { TabView };
+export { CustomTabNavigation, CustomDrawerNavigation, MainView };
