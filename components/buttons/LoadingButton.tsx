@@ -12,6 +12,7 @@ interface ILoadingButton {
   label: string;
   loading: boolean;
   btnStyle?: object;
+  lblStyle?: object;
 }
 
 const LoadingButton = (props: TouchableOpacityProps & ILoadingButton) => {
@@ -24,7 +25,7 @@ const LoadingButton = (props: TouchableOpacityProps & ILoadingButton) => {
       {props.loading ? (
         <ActivityIndicator size={"small"} color={colors.purple} />
       ) : (
-        <AppText label={props.label} />
+        <AppText label={props.label} lblStyle={props.lblStyle} />
       )}
     </TouchableOpacity>
   );

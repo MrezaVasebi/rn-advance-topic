@@ -9,13 +9,13 @@ import {
 import { colors } from "../../ui-config";
 import { AppText } from "../texts";
 
-interface ICheckBox {
+interface IRadioButton {
   label: string;
   btnStyle?: object;
   isChecked: boolean;
 }
 
-const CheckBox = (props: ICheckBox & TouchableOpacityProps) => {
+const RadioButton = (props: IRadioButton & TouchableOpacityProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
@@ -28,7 +28,7 @@ const CheckBox = (props: ICheckBox & TouchableOpacityProps) => {
           backgroundColor: props.isChecked ? colors.purple : colors.white,
         }}
       >
-        <Entypo name="check" size={15} color={colors.white} />
+        <Entypo name="check" size={13} color={colors.white} />
       </View>
 
       <AppText label={props.label} />
@@ -36,7 +36,7 @@ const CheckBox = (props: ICheckBox & TouchableOpacityProps) => {
   );
 };
 
-export default CheckBox;
+export default RadioButton;
 
 const styles = StyleSheet.create({
   btnStyle: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderWidth: 1,
     marginRight: 5,
-    borderRadius: 5,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
   },
