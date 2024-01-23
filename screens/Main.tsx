@@ -7,7 +7,10 @@ import { AppText } from "../components/texts";
 import { colors } from "../ui-config";
 
 const Main = () => {
-  let routes = [{ routeName: "KindOfNavigation", lbl: "Kind Of Navigation" }];
+  let routes = [
+    { routeName: "KindOfNavigation", lbl: "Kind Of Navigation" },
+    { routeName: "FormikApp", lbl: "Formik App" },
+  ];
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (

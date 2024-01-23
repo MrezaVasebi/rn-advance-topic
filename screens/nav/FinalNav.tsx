@@ -1,8 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
+import { StyleSheet } from "react-native";
 import { RootScreen } from "../../components";
+import { AppText } from "../../components/texts";
+import { colors } from "../../ui-config";
 import Main from "../Main";
+import { FormikApp } from "../formik";
 import { KindOfNavigation } from "../kind_of_navigation";
 
 // type RootStackParamList = {
@@ -155,6 +159,19 @@ function FinalNav() {
             component={KindOfNavigation}
             options={{ headerShown: false }}
           />
+
+          <RootStack.Screen
+            name="FormikApp"
+            component={FormikApp}
+            options={({ navigation, route }) => ({
+              headerShown: false,
+              headerTitle({ children, tintColor }) {
+                return (
+                  <AppText label={route.name} lblStyle={styles.formikTitle} />
+                );
+              },
+            })}
+          />
         </RootStack.Navigator>
       </NavigationContainer>
     </RootScreen>
@@ -162,3 +179,10 @@ function FinalNav() {
 }
 
 export default FinalNav;
+
+const styles = StyleSheet.create({
+  formikTitle: {
+    fontSize: 20,
+    color: colors.purple,
+  },
+});
