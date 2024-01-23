@@ -1,5 +1,4 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { StyleSheet } from "react-native";
 import TabNavigation from "./TabNavigation";
 import { CustomDrawerNavigation, MainView } from "./components";
 
@@ -94,11 +93,3 @@ const DrawerNavigation = () => {
 };
 
 export default DrawerNavigation;
-
-const styles = StyleSheet.create({
-  rootStyle: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
