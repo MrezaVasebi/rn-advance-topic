@@ -20,12 +20,13 @@ import { CityModal, FormikError, FormikInput } from "./components";
 import {
   ICity,
   IFields,
+  IFormikApp,
   IFormikValues,
   IGender,
-} from "./interfaces/form_interfaces";
+} from "./interfaces";
 import { validation_schema } from "./schema";
 
-const FormikApp = ({ navigation }: { navigation: any }) => {
+const FormikApp = (props: IFormikApp) => {
   let fields: Array<IFields> = [
     { lbl: "Name", name: "name", type: "input" },
     { lbl: "Email", name: "email", type: "input" },
@@ -62,7 +63,7 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
     { name: "shiraz", lbl: "Shiraz" },
   ];
 
-  const [modal, setModal] = useState<boolean>(false);
+  const [cityModal, setModal] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<ICity>();
 
   const handleOnSelectCity = (item: ICity) => {
@@ -73,9 +74,9 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
     setModal(false);
   };
 
-  const handleResetForm = (props: FormikProps<IFormikValues>) => {
+  const handleResetForm = (formikProps: FormikProps<IFormikValues>) => {
     // clear form values
-    props.resetForm();
+    formikProps.resetForm();
 
     // clear selected city
     setSelectedCity({ lbl: "", name: "" });
@@ -104,7 +105,10 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
       >
-        <GoBackButton label="Formik App" onPress={() => navigation.goBack()} />
+        <GoBackButton
+          label="Formik App"
+          onPress={() => props.navigation.goBack()}
+        />
 
         <View style={styles.container}>
           <Formik
@@ -129,162 +133,124 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
             }}
             validationSchema={validation_schema}
           >
-            {(props) => {
+            {(formikProps) => {
               return (
                 <View>
                   {fields.map((el, index) => {
-                    if (el.type === "input") {
-                      return (
-                        <FormikInput
-                          key={index}
-                          placeholder={el.lbl}
-                          onBlur={props.handleBlur(
-                            el.name as keyof typeof initialValues
-                          )}
-                          onChangeText={props.handleChange(
-                            el.name as keyof typeof initialValues
-                          )}
-                          value={
-                            props.values[
-                              el.name as keyof typeof props.values
-                            ] as string
-                          }
-                          error={
-                            props.errors[
-                              el.name as keyof typeof initialValues
-                            ] &&
-                            props.touched[el.name as keyof typeof initialValues]
-                              ? props.errors[
-                                  el.name as keyof typeof initialValues
-                                ]
-                              : ""
-                          }
-                        />
-                      );
-                    } else if (el.type === "radio") {
-                      return (
-                        <View key={index} style={{ marginTop: 15 }}>
-                          <AppText label={el.lbl} />
+                    let name = el.name as keyof typeof initialValues;
+                    let value = el.name as keyof typeof formikProps.values;
 
-                          <View style={styles.genderStyle}>
-                            {gender.map((ele, gIndex) => {
-                              return (
-                                <RadioButton
-                                  key={gIndex}
-                                  label={ele.lbl}
-                                  isChecked={
-                                    ele.name ===
-                                    props.values[
-                                      el.name as keyof typeof props.values
-                                    ]
-                                  }
-                                  onPress={() =>
-                                    props.setFieldValue(el.name, ele.name, true)
-                                  }
-                                  btnStyle={{ marginRight: 15 }}
-                                />
-                              );
-                            })}
-                          </View>
+                    let itemError = formikProps.errors[name];
+                    let itemValue = formikProps.values[value];
+                    let itemTouched = formikProps.touched[name];
 
-                          {props.errors[
-                            el.name as keyof typeof initialValues
-                          ] &&
-                            props.touched[
-                              el.name as keyof typeof initialValues
-                            ] && (
-                              <FormikError
-                                rootStyle={{ marginTop: 8 }}
-                                label={
-                                  props.errors[
-                                    el.name as keyof typeof initialValues
-                                  ] as string
-                                }
-                              />
-                            )}
-                        </View>
-                      );
-                    } else if (el.type === "checkbox") {
-                      return (
-                        <View key={index} style={{ marginTop: 15 }}>
-                          <CheckBox
-                            label={el.lbl}
-                            isChecked={
-                              props.values[
-                                el.name as keyof typeof initialValues
-                              ] as boolean
-                            }
-                            onPress={() =>
-                              props.setFieldValue(
-                                el.name,
-                                !props.values[
-                                  el.name as keyof typeof props.values
-                                ],
-                                true
-                              )
-                            }
-                          />
-
-                          {props.errors[
-                            el.name as keyof typeof initialValues
-                          ] &&
-                            props.touched[
-                              el.name as keyof typeof initialValues
-                            ] && (
-                              <FormikError
-                                rootStyle={{ marginTop: 8 }}
-                                label={
-                                  props.errors[
-                                    el.name as keyof typeof initialValues
-                                  ] ?? ""
-                                }
-                              />
-                            )}
-                        </View>
-                      );
-                    } else if (el.type === "modal") {
-                      return (
-                        <>
-                          <TouchableOpacity
+                    switch (el.type) {
+                      case "input": {
+                        return (
+                          <FormikInput
                             key={index}
-                            style={styles.cityContainer}
-                            onPress={() => setModal(true)}
-                          >
-                            {selectedCity?.name === "" ||
-                            selectedCity?.name === undefined ? (
-                              <>
-                                <AppText
-                                  label={el.lbl}
-                                  lblStyle={{ opacity: 0.5 }}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <AppText
-                                  label={selectedCity?.lbl as string}
-                                  lblStyle={{ color: colors.black }}
-                                />
-                              </>
-                            )}
-                          </TouchableOpacity>
+                            placeholder={el.lbl}
+                            value={itemValue as string}
+                            onBlur={formikProps.handleBlur(name)}
+                            onChangeText={formikProps.handleChange(name)}
+                            error={itemError && itemTouched ? itemError : ""}
+                          />
+                        );
+                      }
+                      case "radio": {
+                        return (
+                          <View key={index} style={{ marginTop: 15 }}>
+                            <AppText label={el.lbl} />
 
-                          {props.errors[
-                            el.name as keyof typeof initialValues
-                          ] &&
-                            props.touched[
-                              el.name as keyof typeof initialValues
-                            ] && (
+                            <View style={styles.genderStyle}>
+                              {gender.map((ele, gIndex) => {
+                                return (
+                                  <RadioButton
+                                    key={gIndex}
+                                    label={ele.lbl}
+                                    isChecked={ele.name === itemValue}
+                                    onPress={() =>
+                                      formikProps.setFieldValue(
+                                        el.name,
+                                        ele.name,
+                                        true
+                                      )
+                                    }
+                                    btnStyle={{ marginRight: 15 }}
+                                  />
+                                );
+                              })}
+                            </View>
+
+                            {itemError && itemTouched && (
                               <FormikError
+                                label={itemError as string}
                                 rootStyle={{ marginTop: 8 }}
-                                label={
-                                  props.errors[
-                                    el.name as keyof typeof initialValues
-                                  ] as string
-                                }
                               />
                             )}
-                        </>
-                      );
+                          </View>
+                        );
+                      }
+                      case "checkbox": {
+                        return (
+                          <View key={index} style={{ marginTop: 15 }}>
+                            <CheckBox
+                              label={el.lbl}
+                              isChecked={itemValue as boolean}
+                              onPress={() =>
+                                formikProps.setFieldValue(
+                                  el.name,
+                                  !itemValue,
+                                  true
+                                )
+                              }
+                            />
+
+                            {itemError && itemTouched && (
+                              <FormikError
+                                label={itemError ?? ""}
+                                rootStyle={{ marginTop: 8 }}
+                              />
+                            )}
+                          </View>
+                        );
+                      }
+                      case "modal": {
+                        return (
+                          <View key={index}>
+                            <TouchableOpacity
+                              style={styles.cityContainer}
+                              onPress={() => setModal(true)}
+                            >
+                              {selectedCity?.name === "" ||
+                              selectedCity?.name === undefined ? (
+                                <>
+                                  <AppText
+                                    label={el.lbl}
+                                    lblStyle={{ opacity: 0.5 }}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <AppText
+                                    label={selectedCity?.lbl as string}
+                                    lblStyle={{ color: colors.black }}
+                                  />
+                                </>
+                              )}
+                            </TouchableOpacity>
+
+                            {itemError && itemTouched && (
+                              <FormikError
+                                label={itemError as string}
+                                rootStyle={{ marginTop: 8 }}
+                              />
+                            )}
+                          </View>
+                        );
+                      }
+                      default:
+                        return null;
                     }
                   })}
 
@@ -292,7 +258,7 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
                     <AppButton
                       label="Submit"
                       onPress={
-                        props.handleSubmit as unknown as (
+                        formikProps.handleSubmit as unknown as (
                           e: GestureResponderEvent
                         ) => void
                       }
@@ -307,7 +273,7 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
                       //   ) => void
                       // }
                       lblStyle={{ color: colors.red }}
-                      onPress={() => handleResetForm(props)}
+                      onPress={() => handleResetForm(formikProps)}
                       btnStyle={{ ...styles.bntStyle, marginLeft: 15 }}
                     />
                   </View>
@@ -318,7 +284,7 @@ const FormikApp = ({ navigation }: { navigation: any }) => {
         </View>
       </ScrollView>
 
-      {modal && (
+      {cityModal && (
         <CityModal
           cities={cities}
           closeModal={() => setModal(false)}

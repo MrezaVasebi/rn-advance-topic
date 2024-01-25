@@ -1,3 +1,12 @@
+interface IFormikAppNavigation {
+  navigate: (routeName: string, params?: object) => void;
+  goBack: () => void;
+}
+
+export interface IFormikApp {
+  navigation: IFormikAppNavigation;
+}
+
 export interface IFields {
   lbl: string;
   name: string;
