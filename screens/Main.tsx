@@ -7,7 +7,7 @@ import { AppText } from "../components/texts";
 import { colors } from "../ui-config";
 
 const Main = () => {
-  let routes = [
+  let routes: { routeName: string; lbl: string }[] = [
     { routeName: "KindOfNavigation", lbl: "Kind Of Navigation" },
     { routeName: "FormikApp", lbl: "Formik App" },
   ];

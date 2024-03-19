@@ -23,7 +23,7 @@ const LoadingButton = (props: TouchableOpacityProps & ILoadingButton) => {
       style={{ ...styles.btnStyle, ...props.btnStyle }}
     >
       {props.loading ? (
-        <ActivityIndicator size={"small"} color={colors.purple} />
+        <ActivityIndicator size={"small"} color={colors.white} />
       ) : (
         <AppText label={props.label} lblStyle={props.lblStyle} />
       )}
