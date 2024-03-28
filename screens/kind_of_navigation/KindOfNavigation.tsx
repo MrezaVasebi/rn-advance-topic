@@ -1,13 +1,13 @@
+import { AppText } from "@/texts";
 import {
   NativeStackScreenProps,
   createNativeStackNavigator,
 } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { AppText } from "../../components/texts";
-import { colors } from "../../ui-config";
 import DrawerNavigation from "./DrawerNavigation";
 import StackNavigation from "./StackNavigation";
+import { colors } from "@/colors";
 
 type RootStackParamList = {
   StackNavigation: undefined;

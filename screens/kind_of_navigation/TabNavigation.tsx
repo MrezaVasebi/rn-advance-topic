@@ -1,9 +1,9 @@
+import { AppButton } from "@/buttons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { AppButton } from "../../components/buttons";
-import { colors } from "../../ui-config";
 import { CustomTabNavigation, MainView } from "./components";
+import { colors } from "@/colors";
 
 const Tab = createBottomTabNavigator();
 

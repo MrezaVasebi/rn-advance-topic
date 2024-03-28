@@ -1,6 +1,6 @@
+import { colors } from "@/colors";
 import React from "react";
 import { StatusBar, StyleSheet, View, ViewProps } from "react-native";
-import { colors } from "../ui-config";
 
 interface IRootScreen {
   rootStyle?: object;

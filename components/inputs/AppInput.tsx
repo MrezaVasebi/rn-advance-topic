@@ -1,6 +1,6 @@
+import { colors } from "@/colors";
 import React from "react";
 import { StyleSheet, TextInput, TextInputProps } from "react-native";
-import { colors } from "../../ui-config";
 
 const AppInput = (
   props: TextInputProps & {

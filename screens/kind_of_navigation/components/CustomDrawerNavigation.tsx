@@ -11,7 +11,7 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { colors } from "../../../ui-config";
+import { colors } from "@/colors";
 
 interface ICustomDrawerNavigation {
   descriptors: DrawerDescriptorMap;

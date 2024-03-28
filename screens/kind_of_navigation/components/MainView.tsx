@@ -1,7 +1,7 @@
+import { AppButton } from "@/buttons";
+import { AppText } from "@/texts";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { AppButton } from "../../../components/buttons";
-import { AppText } from "../../../components/texts";
 
 interface IMainView {
   title: string;

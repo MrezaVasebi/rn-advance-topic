@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacityProps } from "react-native";
-import AppButton from "./buttons/AppButton";
+import { AppButton } from "./buttons";
 
 interface IMenuItem {
   label: string;

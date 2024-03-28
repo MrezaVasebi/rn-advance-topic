@@ -1,3 +1,6 @@
+import { colors } from "@/colors";
+import RootScreen from "@/RootScreen";
+import { AppText } from "@/texts";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   NativeStackScreenProps,
@@ -5,12 +8,9 @@ import {
 } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { RootScreen } from "../../components";
-import { AppText } from "../../components/texts";
-import { colors } from "../../ui-config";
-import Main from "../Main";
-import { FormikApp } from "../formik";
-import { KindOfNavigation } from "../kind_of_navigation";
+import { FormikApp } from "screens/formik";
+import { KindOfNavigation } from "screens/kind_of_navigation";
+import Main from "screens/Main";
 
 type RootStackParamList = {
   Main: undefined;

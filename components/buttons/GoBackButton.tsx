@@ -1,3 +1,5 @@
+import { colors } from "@/colors";
+import { AppText } from "@/texts";
 import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import {
@@ -5,8 +7,6 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
-import { colors } from "../../ui-config";
-import { AppText } from "../texts";
 
 const GoBackButton = (props: TouchableOpacityProps & { label: string }) => {
   return (

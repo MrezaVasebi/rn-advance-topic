@@ -1,3 +1,5 @@
+import { AppButton } from "@/buttons";
+import { colors } from "@/colors";
 import {
   BottomTabDescriptorMap,
   BottomTabNavigationEventMap,
@@ -10,8 +12,6 @@ import {
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { EdgeInsets } from "react-native-safe-area-context";
-import { AppButton } from "../../../components/buttons";
-import { colors } from "../../../ui-config";
 
 interface ICustomTabNavigation {
   descriptors: BottomTabDescriptorMap;

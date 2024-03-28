@@ -1,10 +1,11 @@
+import { colors } from "@/colors";
+import MenuItem from "@/MenuItem";
+import RootScreen from "@/RootScreen";
+import { AppText } from "@/texts";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { MenuItem, RootScreen } from "../components";
-import { AppText } from "../components/texts";
-import { colors } from "../ui-config";
 
 const Main = () => {
   let routes: { routeName: string; lbl: string }[] = [

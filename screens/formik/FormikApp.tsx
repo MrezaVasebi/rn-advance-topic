@@ -1,3 +1,7 @@
+import RootScreen from "@/RootScreen";
+import { AppButton, CheckBox, GoBackButton, RadioButton } from "@/buttons";
+import { colors } from "@/colors";
+import { AppText } from "@/texts";
 import { Formik, FormikProps } from "formik";
 import React, { useState } from "react";
 import {
@@ -7,15 +11,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { RootScreen } from "../../components";
-import {
-  AppButton,
-  CheckBox,
-  GoBackButton,
-  RadioButton,
-} from "../../components/buttons";
-import { AppText } from "../../components/texts";
-import { colors } from "../../ui-config";
 import { CityModal, FormikError, FormikInput } from "./components";
 import {
   ICity,
@@ -35,7 +30,7 @@ const FormikApp = (props: IFormikApp) => {
     { lbl: "Gender", name: "gender", type: "radio" },
     { lbl: "Password", name: "password", type: "input" },
     { lbl: "Confirm Password", name: "confirmPassword", type: "input" },
-    { lbl: "Choose city from modal", name: "city", type: "modal" },
+    { lbl: "Choose city", name: "city", type: "modal" },
     { lbl: "Accept Condition", name: "acceptCondition", type: "checkbox" },
   ];
 

@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import TabNavigation from "./TabNavigation";
 import { CustomDrawerNavigation, MainView } from "./components";
+import TabNavigation from "./TabNavigation";
 
 const Drawer = createDrawerNavigator();
 

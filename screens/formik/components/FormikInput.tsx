@@ -1,6 +1,6 @@
+import { AppInput } from "@/inputs";
 import React from "react";
 import { TextInputProps, View } from "react-native";
-import { AppInput } from "../../../components/inputs";
 import FormikError from "./FormikError";
 
 interface IFormikInput extends TextInputProps {

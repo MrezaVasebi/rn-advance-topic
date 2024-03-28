@@ -1,3 +1,5 @@
+import { colors } from "@/colors";
+import { AppText } from "@/texts";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
@@ -8,9 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { AppText } from "../../../components/texts";
-import { colors } from "../../../ui-config";
-import { ICity } from "../interfaces/form_interfaces";
+import { ICity } from "../interfaces";
 
 interface ICityModal {
   cities: ICity[];

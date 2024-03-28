@@ -1,8 +1,8 @@
+import { AppButton } from "@/buttons";
+import RootScreen from "@/RootScreen";
+import { AppText } from "@/texts";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { RootScreen } from "../../components";
-import { AppButton } from "../../components/buttons";
-import { AppText } from "../../components/texts";
 import { PropsStackNavigation } from "./KindOfNavigation";
 
 const StackNavigation = ({ navigation, route }: PropsStackNavigation) => {

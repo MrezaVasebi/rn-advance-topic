@@ -1,6 +1,6 @@
+import { colors } from "@/colors";
+import { AppText } from "@/texts";
 import React from "react";
-import { AppText } from "../../../components/texts";
-import { colors } from "../../../ui-config";
 
 const FormikError = ({
   label,

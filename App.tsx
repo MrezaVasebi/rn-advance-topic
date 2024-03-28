@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import { StatusBar, View } from "react-native";
-import { FinalNavigation } from "./screens/nav";
+import { FinalNavigation } from "screens/nav";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

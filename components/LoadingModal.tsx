@@ -1,6 +1,6 @@
+import { colors } from "@/colors";
 import React from "react";
 import { ActivityIndicator, Modal, StyleSheet, View } from "react-native";
-import { colors } from "../ui-config";
 
 const LoadingModal = () => {
   return (

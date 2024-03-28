@@ -1,3 +1,5 @@
+import { colors } from "@/colors";
+import { AppText } from "@/texts";
 import { Entypo } from "@expo/vector-icons";
 import React from "react";
 import {
@@ -6,8 +8,6 @@ import {
   TouchableOpacityProps,
   View,
 } from "react-native";
-import { colors } from "../../ui-config";
-import { AppText } from "../texts";
 
 interface ICheckBox {
   label: string;

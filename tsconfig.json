@@ -1,8 +1,18 @@
 {
   "extends": "expo/tsconfig.base",
-  "compilerOptions": {},
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*",
+        "components/*",
+        "ui-config/*",
+        "classes/*",
+        "components/buttons/*",
+        "components/inputs/*",
+        "components/texts/*"
+      ]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
 }

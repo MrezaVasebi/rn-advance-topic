@@ -1,3 +1,4 @@
+import { colors } from "@/colors";
 import { ParamListBase, Route } from "@react-navigation/native";
 import {
   NativeStackNavigationOptions,
@@ -5,8 +6,7 @@ import {
 } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { colors } from "../ui-config";
-import AppButton from "./buttons/AppButton";
+import { AppButton } from "./buttons";
 import { AppText } from "./texts";
 
 interface ICustomHeader {
