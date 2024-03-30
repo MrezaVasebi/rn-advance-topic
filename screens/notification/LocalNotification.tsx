@@ -1,52 +1,18 @@
 import { AppButton, GoBackButton } from "@/buttons";
 import RootScreen from "@/RootScreen";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { PropsLocalNotification } from "screens/nav/FinalNavigation";
 
-import * as Notifications from "expo-notifications";
+import { AppText } from "@/texts";
+import { useLocalNotification } from "./logic";
 
-// handle the notification when application is in foreground.
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+// push notification does not support simulator/emulator.
+// you should try it on physical device.
 
 const LocalNotification = (props: PropsLocalNotification) => {
   let { navigation, route } = props;
-
-  const responseListener = useRef();
-  const notificationListener = useRef();
-
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-
-  // local notification, device send notification to itself.
-  // when the application is in background.
-  async function schedulePushNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        // badge: 1,
-        // sound: true,
-        // sticky: true,
-        // vibrate: [1, 2],
-        // autoDismiss: false,
-        // color: colors.purple,
-        body: "Body",
-        title: "Title",
-        subtitle: "Subtitle",
-        data: { data: "goes here" },
-        priority: Notifications.AndroidNotificationPriority.DEFAULT,
-      },
-      trigger: {
-        seconds: 5, // send notification after 5 seconds
-      },
-      // identifier: "Cancel sending notification...",
-    });
-  }
+  const hooks = useLocalNotification();
 
   return (
     <RootScreen rootStyle={{ paddingTop: 0 }}>
@@ -56,12 +22,20 @@ const LocalNotification = (props: PropsLocalNotification) => {
       />
 
       <View style={styles.mainStyle}>
+        <AppText label="Notification Data: " />
+        {hooks.fields.receiveNotification && (
+          <AppText
+            label={
+              hooks?.fields?.receiveNotification?.request?.content?.data?.data
+            }
+            lblStyle={{ opacity: 0.5 }}
+          />
+        )}
+
         <AppButton
           label="Toggle notification"
           btnStyle={styles.toggleStyle}
-          onPress={async () => {
-            await schedulePushNotification();
-          }}
+          onPress={hooks.handleToggleNotification}
         />
       </View>
     </RootScreen>
@@ -73,7 +47,7 @@ export default LocalNotification;
 const styles = StyleSheet.create({
   mainStyle: {
     flex: 1,
-    paddingHorizontal: 20,
+    padding: 20,
   },
   toggleStyle: {
     marginTop: 15,
