@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mrezarn.advance_react_native"
+      "package": "com.mrezarn.advance_react_native",
+      "useNextNotificationApi": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
