@@ -11,18 +11,18 @@ import { StyleSheet } from "react-native";
 import { FormikApp } from "screens/formik";
 import { KindOfNavigation } from "screens/kind_of_navigation";
 import Main from "screens/Main";
-import { LocalNotification } from "screens/notification";
+import { Notification } from "screens/notification";
 
 type RootStackParamList = {
   Main: undefined;
   FormikApp: undefined;
   KindOfNavigation: undefined;
-  LocalNotification: undefined;
+  Notification: undefined;
 };
 
-export type PropsLocalNotification = NativeStackScreenProps<
+export type PropsNotification = NativeStackScreenProps<
   RootStackParamList,
-  "LocalNotification"
+  "Notification"
 >;
 
 export type PropsFormikApp = NativeStackScreenProps<
@@ -72,8 +72,8 @@ const FinalNavigation = () => {
           />
 
           <RootStack.Screen
-            name="LocalNotification"
-            component={LocalNotification}
+            name="Notification"
+            component={Notification}
             options={({ navigation, route }) => ({
               headerShown: false,
             })}

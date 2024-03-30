@@ -11,7 +11,7 @@ const Main = () => {
   let routes: { routeName: string; lbl: string }[] = [
     { routeName: "KindOfNavigation", lbl: "Kind Of Navigation" },
     { routeName: "FormikApp", lbl: "Formik App" },
-    { routeName: "LocalNotification", lbl: "Local Notification" },
+    { routeName: "Notification", lbl: "Expo Notification" },
   ];
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 

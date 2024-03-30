@@ -1,1 +1,1 @@
-export * from "./useLocalNotification";
+export * from "./Notification";

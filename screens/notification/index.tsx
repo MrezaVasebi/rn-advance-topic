@@ -1,3 +1,3 @@
-import LocalNotification from "./LocalNotification";
+import Notification from "./Notification";
 
-export { LocalNotification };
+export { Notification };
