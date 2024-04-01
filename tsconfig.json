@@ -4,13 +4,14 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*",
-        "components/*",
-        "ui-config/*",
+        "hooks/*",
+        "screens/*",
         "classes/*",
-        "components/buttons/*",
+        "ui-config/*",
+        "components/*",
+        "components/texts/*",
         "components/inputs/*",
-        "components/texts/*"
+        "components/buttons/*"
       ]
     }
   },
