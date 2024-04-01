@@ -20,12 +20,18 @@ const Notification = (props: PropsNotification) => {
   if (!Device.isDevice) {
     return (
       <View style={styles.realDeviceStyle}>
-        <AppText
-          lblStyle={{ opacity: 0.5 }}
-          label="For testing this section you must use real/physical device."
-        />
+        <View style={styles.testStyle}>
+          <AppText
+            lblStyle={styles.lblTestStyle}
+            label="For testing this section you must use real/physical device."
+          />
 
-        <AppButton label="Return" onPress={() => navigation.goBack()} />
+          <AppButton
+            label="Back"
+            btnStyle={{ marginTop: 15 }}
+            onPress={() => navigation.goBack()}
+          />
+        </View>
       </View>
     );
   }
@@ -85,6 +91,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  testStyle: {
+    alignItems: "center",
+    paddingHorizontal: 20,
+    justifyContent: "center",
+  },
+  lblTestStyle: {
+    opacity: 0.5,
+    fontSize: 18,
+    textAlign: "center",
   },
   mainStyle: {
     flex: 1,
