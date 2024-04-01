@@ -1,21 +1,27 @@
 import { AppInput } from "@/inputs";
+import { useFormikContext } from "formik";
 import React from "react";
 import { TextInputProps, View } from "react-native";
 import FormikError from "./FormikError";
 
 interface IFormikInput extends TextInputProps {
-  error?: string;
+  name: string;
   rootStyle?: object;
 }
 
-const FormikInput = ({ error, rootStyle, ...props }: IFormikInput) => {
+const FormikInput = ({ rootStyle, ...props }: IFormikInput) => {
+  let { name } = props;
+  const { handleBlur, handleChange, touched, errors } = useFormikContext();
+
   return (
     <View style={{ ...rootStyle }}>
-      <AppInput {...props} />
+      <AppInput
+        onBlur={handleBlur(name)}
+        onChangeText={handleChange(name)}
+        {...props}
+      />
 
-      {error && (
-        <FormikError rootStyle={{ marginTop: 5 }} label={error ?? ""} />
-      )}
+      {touched[name] && errors[name] && <FormikError label={errors[name]} />}
     </View>
   );
 };

@@ -2,97 +2,16 @@ import RootScreen from "@/RootScreen";
 import { AppButton, CheckBox, GoBackButton, RadioButton } from "@/buttons";
 import { colors } from "@/colors";
 import { AppText } from "@/texts";
-import { Formik, FormikProps } from "formik";
-import React, { useState } from "react";
-import {
-  GestureResponderEvent,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Formik } from "formik";
+import React from "react";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { PropsFormikApp } from "screens/nav/FinalNavigation";
 import { CityModal, FormikError, FormikInput } from "./components";
-import {
-  ICity,
-  IFields,
-  IFormikApp,
-  IFormikValues,
-  IGender,
-} from "./interfaces";
+import { useFormikApp } from "./logic";
 import { validation_schema } from "./schema";
 
-const FormikApp = (props: IFormikApp) => {
-  let fields: Array<IFields> = [
-    { lbl: "Name", name: "name", type: "input" },
-    { lbl: "Email", name: "email", type: "input" },
-    { lbl: "Phone Number", name: "phoneNumber", type: "input" },
-    { lbl: "Age", name: "age", type: "input" },
-    { lbl: "Gender", name: "gender", type: "radio" },
-    { lbl: "Password", name: "password", type: "input" },
-    { lbl: "Confirm Password", name: "confirmPassword", type: "input" },
-    { lbl: "Choose city", name: "city", type: "modal" },
-    { lbl: "Accept Condition", name: "acceptCondition", type: "checkbox" },
-  ];
-
-  const initialValues: IFormikValues = {
-    name: "",
-    age: "",
-    city: "",
-    email: "",
-    gender: "",
-    password: "",
-    phoneNumber: "",
-    confirmPassword: "",
-    acceptCondition: false,
-  };
-
-  const gender: IGender[] = [
-    { lbl: "Male", name: "male" },
-    { lbl: "Female", name: "female" },
-    { lbl: "Other", name: "other" },
-  ];
-
-  const cities: ICity[] = [
-    { name: "tabriz", lbl: "Tabriz" },
-    { name: "tehran", lbl: "Tehran" },
-    { name: "shiraz", lbl: "Shiraz" },
-  ];
-
-  const [cityModal, setModal] = useState<boolean>(false);
-  const [selectedCity, setSelectedCity] = useState<ICity>();
-
-  const handleOnSelectCity = (item: ICity) => {
-    // selected city
-    setSelectedCity(item);
-
-    // close modal
-    setModal(false);
-  };
-
-  const handleResetForm = (formikProps: FormikProps<IFormikValues>) => {
-    // clear form values
-    formikProps.resetForm();
-
-    // clear selected city
-    setSelectedCity({ lbl: "", name: "" });
-  };
-
-  /*
-  FORMIK Options:
-  values -> form values.
-  errors -> handle form errors.
-  resetForm -> clear forms values.
-  handleChange -> to handle input value.
-  handleBlur -> for textInput onBlur function.
-  setSubmitting -> change isSubmitting status.
-  handleSubmit -> to handle when submit values.
-  isSubmitting -> fire when press handleSubmit.
-  setFieldValue -> set value of form field directly.
-  isValid -> true if state.errors is empty, otherwise false.
-  submitCount -> Number of times user tried to submit the form.
-  dirty -> True if any input has been touched. False otherwise.
-  touched -> we don’t want to show these errors every time, only when there is an error and if the field is touched.
-  */
+const FormikApp = (props: PropsFormikApp) => {
+  const hooks = useFormikApp();
 
   return (
     <RootScreen rootStyle={styles.rootStyle}>
@@ -107,48 +26,56 @@ const FormikApp = (props: IFormikApp) => {
 
         <View style={styles.container}>
           <Formik
-            initialValues={initialValues}
+            initialValues={hooks.fields.initialValues}
+            // onSubmit={(values, actions) => {
+            //   handleSubmit(values);
+            //   console.log({ values });
+
+            //   actions.setSubmitting(true);
+
+            //   setTimeout(() => {
+            //     actions.setSubmitting(false);
+            //   }, 2000);
+
+            //   actions.resetForm();
+            //   actions.setSubmitting(false);
+
+            //   // clear selected city
+            //   setSelectedCity({
+            //     lbl: "",
+            //     name: "",
+            //   });
+            // }}
+
+            // onSubmit={submitHandler({ saving: false })} // sending custom data to submitHandler
+
+            // onSubmit={() => {}}
+
             onSubmit={(values, actions) => {
-              // console.log({ values });
-
-              actions.setSubmitting(true);
-
-              setTimeout(() => {
-                actions.setSubmitting(false);
-              }, 2000);
-
-              actions.resetForm();
-              actions.setSubmitting(false);
-
-              // clear selected city
-              setSelectedCity({
-                lbl: "",
-                name: "",
-              });
+              hooks.submitHandler(values, actions);
             }}
             validationSchema={validation_schema}
           >
-            {(formikProps) => {
+            {(props) => {
               return (
                 <View>
-                  {fields.map((el, index) => {
-                    let name = el.name as keyof typeof initialValues;
-                    let value = el.name as keyof typeof formikProps.values;
+                  {hooks.fields.inputFields.map((el, index) => {
+                    let name =
+                      el.name as keyof typeof hooks.fields.initialValues;
+                    let value = el.name as keyof typeof props.values;
 
-                    let itemError = formikProps.errors[name];
-                    let itemValue = formikProps.values[value];
-                    let itemTouched = formikProps.touched[name];
+                    let itemError = props.errors[name];
+                    let itemValue = props.values[value];
+                    let itemTouched = props.touched[name];
 
                     switch (el.type) {
                       case "input": {
                         return (
                           <FormikInput
+                            name={name}
                             key={index}
                             placeholder={el.lbl}
                             value={itemValue as string}
-                            onBlur={formikProps.handleBlur(name)}
-                            onChangeText={formikProps.handleChange(name)}
-                            error={itemError && itemTouched ? itemError : ""}
                           />
                         );
                       }
@@ -158,14 +85,14 @@ const FormikApp = (props: IFormikApp) => {
                             <AppText label={el.lbl} />
 
                             <View style={styles.genderStyle}>
-                              {gender.map((ele, gIndex) => {
+                              {hooks.fields.gender.map((ele, gIndex) => {
                                 return (
                                   <RadioButton
                                     key={gIndex}
                                     label={ele.lbl}
                                     isChecked={ele.name === itemValue}
                                     onPress={() =>
-                                      formikProps.setFieldValue(
+                                      props.setFieldValue(
                                         el.name,
                                         ele.name,
                                         true
@@ -193,17 +120,13 @@ const FormikApp = (props: IFormikApp) => {
                               label={el.lbl}
                               isChecked={itemValue as boolean}
                               onPress={() =>
-                                formikProps.setFieldValue(
-                                  el.name,
-                                  !itemValue,
-                                  true
-                                )
+                                props.setFieldValue(el.name, !itemValue, true)
                               }
                             />
 
                             {itemError && itemTouched && (
                               <FormikError
-                                label={itemError ?? ""}
+                                label={itemError as string}
                                 rootStyle={{ marginTop: 8 }}
                               />
                             )}
@@ -215,10 +138,10 @@ const FormikApp = (props: IFormikApp) => {
                           <View key={index}>
                             <TouchableOpacity
                               style={styles.cityContainer}
-                              onPress={() => setModal(true)}
+                              onPress={() => hooks.setModal(true)}
                             >
-                              {selectedCity?.name === "" ||
-                              selectedCity?.name === undefined ? (
+                              {hooks.fields.selectedCity?.name === "" ||
+                              hooks.fields.selectedCity?.name === undefined ? (
                                 <>
                                   <AppText
                                     label={el.lbl}
@@ -228,7 +151,9 @@ const FormikApp = (props: IFormikApp) => {
                               ) : (
                                 <>
                                   <AppText
-                                    label={selectedCity?.lbl as string}
+                                    label={
+                                      hooks.fields.selectedCity?.lbl as string
+                                    }
                                     lblStyle={{ color: colors.black }}
                                   />
                                 </>
@@ -252,10 +177,14 @@ const FormikApp = (props: IFormikApp) => {
                   <View style={styles.buttonContainer}>
                     <AppButton
                       label="Submit"
-                      onPress={
-                        formikProps.handleSubmit as unknown as (
-                          e: GestureResponderEvent
-                        ) => void
+                      onPress={() =>
+                        // submitHandler({ saving: true })(props.values, props)
+
+                        // props.handleSubmit as unknown as (
+                        //   e: GestureResponderEvent
+                        // ) => void
+
+                        hooks.submitHandler(props.values, props)
                       }
                       btnStyle={styles.bntStyle}
                     />
@@ -268,7 +197,7 @@ const FormikApp = (props: IFormikApp) => {
                       //   ) => void
                       // }
                       lblStyle={{ color: colors.red }}
-                      onPress={() => handleResetForm(formikProps)}
+                      onPress={() => hooks.handleResetForm(props)}
                       btnStyle={{ ...styles.bntStyle, marginLeft: 15 }}
                     />
                   </View>
@@ -279,11 +208,11 @@ const FormikApp = (props: IFormikApp) => {
         </View>
       </ScrollView>
 
-      {cityModal && (
+      {hooks.fields.cityModal && (
         <CityModal
-          cities={cities}
-          closeModal={() => setModal(false)}
-          handleOnSelectCity={(item) => handleOnSelectCity(item)}
+          cities={hooks.fields.cities}
+          closeModal={() => hooks.setModal(false)}
+          handleOnSelectCity={(item) => hooks.handleSelectCity(item)}
         />
       )}
     </RootScreen>
@@ -326,9 +255,9 @@ const styles = StyleSheet.create({
   },
   cityContainer: {
     padding: 10,
+    elevation: 2,
     marginTop: 10,
-    borderWidth: 0.5,
-    borderRadius: 10,
+    borderRadius: 5,
     backgroundColor: colors.white,
   },
 });

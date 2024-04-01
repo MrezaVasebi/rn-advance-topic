@@ -2,15 +2,17 @@ import { colors } from "@/colors";
 import { AppText } from "@/texts";
 import React from "react";
 
-const FormikError = ({
-  label,
-  rootStyle,
-}: {
+interface IFormikError {
   label: string;
   rootStyle?: object;
-}) => {
+}
+
+const FormikError = (props: IFormikError) => {
   return (
-    <AppText label={label} lblStyle={{ color: colors.red, ...rootStyle }} />
+    <AppText
+      label={props.label}
+      lblStyle={{ color: colors.red, ...props.rootStyle }}
+    />
   );
 };
 
