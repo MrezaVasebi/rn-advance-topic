@@ -14,7 +14,7 @@ const FormikApp = (props: PropsFormikApp) => {
   const hooks = useFormikApp();
 
   return (
-    <RootScreen rootStyle={styles.rootStyle}>
+    <RootScreen>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
@@ -222,10 +222,6 @@ const FormikApp = (props: PropsFormikApp) => {
 export default FormikApp;
 
 const styles = StyleSheet.create({
-  rootStyle: {
-    flex: 1,
-    paddingTop: 0,
-  },
   container: {
     margin: 20,
     padding: 20,

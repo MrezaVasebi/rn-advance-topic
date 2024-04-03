@@ -1,20 +1,30 @@
 import { colors } from "@/colors";
 import React from "react";
-import { StatusBar, StyleSheet, View, ViewProps } from "react-native";
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  ViewProps,
+} from "react-native";
 
-interface IRootScreen {
+interface IRootScreen extends ViewProps {
   rootStyle?: object;
 }
 
-const RootScreen = (props: ViewProps & IRootScreen) => {
+const RootScreen = (props: IRootScreen) => {
   return (
-    <View style={{ flex: 1 }}>
+    <>
       <StatusBar hidden />
-
-      <View style={{ ...styles.rootStyle, ...props.rootStyle }}>
-        {props.children}
-      </View>
-    </View>
+      {/* this piece of code is for solving notch problem in android and ios mobiles. */}
+      <SafeAreaView style={{ flex: 0, backgroundColor: colors.bgColor }} />
+      <SafeAreaView style={{ flex: 1, backgroundColor: colors.bgColor }}>
+        <View
+          children={props.children}
+          style={{ ...styles.rootStyle, ...props.rootStyle }}
+        />
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -24,6 +34,6 @@ const styles = StyleSheet.create({
   rootStyle: {
     flex: 1,
     backgroundColor: colors.bgColor,
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight <= 24 ? 25 : 15,
   },
 });
