@@ -15,7 +15,7 @@ interface IRootScreen extends ViewProps {
 const RootScreen = (props: IRootScreen) => {
   return (
     <>
-      <StatusBar hidden />
+      <StatusBar barStyle="light-content" />
       {/* this piece of code is for solving notch problem in android and ios mobiles. */}
       <SafeAreaView style={{ flex: 0, backgroundColor: colors.bgColor }} />
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.bgColor }}>
@@ -34,6 +34,5 @@ const styles = StyleSheet.create({
   rootStyle: {
     flex: 1,
     backgroundColor: colors.bgColor,
-    paddingTop: StatusBar.currentHeight <= 24 ? 25 : 15,
   },
 });
