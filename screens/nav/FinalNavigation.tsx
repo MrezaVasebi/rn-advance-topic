@@ -8,17 +8,23 @@ import {
 } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { CachingData } from "screens/caching_data";
 import { FormikApp } from "screens/formik";
 import { KindOfNavigation } from "screens/kind_of_navigation";
 import Main from "screens/Main";
 import { Notification } from "screens/notification";
-
 type RootStackParamList = {
   Main: undefined;
   FormikApp: undefined;
-  KindOfNavigation: undefined;
+  CachingData: undefined;
   Notification: undefined;
+  KindOfNavigation: undefined;
 };
+
+export type PropsCachingData = NativeStackScreenProps<
+  RootStackParamList,
+  "CachingData"
+>;
 
 export type PropsNotification = NativeStackScreenProps<
   RootStackParamList,
@@ -74,6 +80,14 @@ const FinalNavigation = () => {
           <RootStack.Screen
             name="Notification"
             component={Notification}
+            options={({ navigation, route }) => ({
+              headerShown: false,
+            })}
+          />
+
+          <RootStack.Screen
+            name="CachingData"
+            component={CachingData}
             options={({ navigation, route }) => ({
               headerShown: false,
             })}

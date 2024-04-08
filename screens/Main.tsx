@@ -12,8 +12,11 @@ const Main = () => {
     { routeName: "KindOfNavigation", lbl: "Kind Of Navigation" },
     { routeName: "FormikApp", lbl: "Formik App" },
     { routeName: "Notification", lbl: "Expo Notification" },
+    { routeName: "CachingData", lbl: "Caching Data" },
   ];
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
     <RootScreen>
@@ -28,7 +31,7 @@ const Main = () => {
               key={index}
               label={el.lbl}
               rootStyle={{ marginBottom: 15 }}
-              onPress={() => navigation.navigate(el.routeName)}
+              onPress={() => navigate(el.routeName)}
             />
           );
         })}
@@ -41,6 +44,7 @@ export default Main;
 
 const styles = StyleSheet.create({
   titleStyle: {
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
   },
