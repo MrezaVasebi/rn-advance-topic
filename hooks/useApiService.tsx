@@ -11,25 +11,29 @@ export const useApiService = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchDataHandler = async (endPoint: string, storageKey: string) => {
+    if (endPoint === "" || storageKey === "") return;
+
+    setLoading(true);
     try {
-      setLoading(true);
       let response = await apiService.getData(endPoint);
       if (response) {
         setData(response);
-        setLoading(false);
 
         // cache data in async storage
         cache.storeData(response, storageKey);
       } else {
-        setLoading(false);
         setError("Something is wrong...");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCacheData = async (storageKey: string) => {
+    if (storageKey === "") return;
+
     setLoading(true);
     try {
       let response = await cache.retrieveAndRemoveData(storageKey);
