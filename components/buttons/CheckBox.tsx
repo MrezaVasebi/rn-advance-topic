@@ -25,6 +25,7 @@ const CheckBox = (props: ICheckBox & TouchableOpacityProps) => {
       <View
         style={{
           ...styles.square,
+          borderWidth: props.isChecked ? 0 : 1,
           backgroundColor: props.isChecked ? colors.purple : colors.white,
         }}
       >
