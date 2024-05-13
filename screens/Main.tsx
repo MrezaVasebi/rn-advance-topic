@@ -13,6 +13,7 @@ const Main = () => {
     { routeName: "FormikApp", lbl: "Formik App" },
     { routeName: "Notification", lbl: "Expo Notification" },
     { routeName: "CachingData", lbl: "Caching Data" },
+    { routeName: "UsersContainer", lbl: "Users List" },
   ];
 
   const { navigate } =

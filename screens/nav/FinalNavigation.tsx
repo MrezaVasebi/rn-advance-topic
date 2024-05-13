@@ -1,5 +1,6 @@
 import { colors } from "@/colors";
 import RootScreen from "@/RootScreen";
+import UsersContainer from "@/rq/UsersContainer";
 import { AppText } from "@/texts";
 import { NavigationContainer } from "@react-navigation/native";
 import {
@@ -18,6 +19,7 @@ type RootStackParamList = {
   FormikApp: undefined;
   CachingData: undefined;
   Notification: undefined;
+  UsersContainer: undefined;
   KindOfNavigation: undefined;
 };
 
@@ -88,6 +90,14 @@ const FinalNavigation = () => {
           <RootStack.Screen
             name="CachingData"
             component={CachingData}
+            options={({ navigation, route }) => ({
+              headerShown: false,
+            })}
+          />
+
+          <RootStack.Screen
+            name="UsersContainer"
+            component={UsersContainer}
             options={({ navigation, route }) => ({
               headerShown: false,
             })}
