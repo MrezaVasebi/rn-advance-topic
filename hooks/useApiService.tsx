@@ -10,13 +10,25 @@ export const useApiService = <D,>() => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchDataHandler = async (endPoint: string, storageKey: string) => {
+  const fetchData = async (endPoint: string): Promise<D[]> => {
+    try {
+      let res = await apiService.getData<D>(endPoint);
+      return res;
+    } catch (error) {
+      throw new Error("Error in fetching data...");
+    }
+  };
+
+  const onFetchAndStoreDataInStorage = async (
+    endPoint: string,
+    storageKey: string
+  ) => {
     if (endPoint === "" || storageKey === "") return;
 
     setLoading(true);
     try {
-      let response = await apiService.getData<D>(endPoint);
-      if (response) {
+      let response = await fetchData(endPoint);
+      if (response.length !== 0) {
         setData(response);
 
         // cache data in async storage
@@ -25,7 +37,7 @@ export const useApiService = <D,>() => {
         setError("Something is wrong...");
       }
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     } finally {
       setLoading(false);
     }
@@ -47,5 +59,12 @@ export const useApiService = <D,>() => {
     }
   };
 
-  return { data, loading, error, fetchDataHandler, handleCacheData };
+  return {
+    fetchData,
+    data,
+    loading,
+    error,
+    onFetchAndStoreDataInStorage,
+    handleCacheData,
+  };
 };

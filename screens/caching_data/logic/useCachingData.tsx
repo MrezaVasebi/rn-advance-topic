@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { User } from "types";
 
 export const useCachingData = () => {
-  let { data, loading, error, fetchDataHandler, handleCacheData } =
+  let { data, loading, error, onFetchAndStoreDataInStorage, handleCacheData } =
     useApiService<User>();
 
   const [isConnected, setIsConnected] = useState<"checking" | "true" | "false">(
@@ -28,7 +28,7 @@ export const useCachingData = () => {
 
   useEffect(() => {
     if (isConnected === "true") {
-      fetchDataHandler("users", "users");
+      onFetchAndStoreDataInStorage("users", "users");
     } else if (isConnected === "false") {
       handleCacheData("users");
     }
