@@ -2,11 +2,11 @@ import ApiService from "@/ApiService";
 import CacheData from "@/CacheData";
 import { useState } from "react";
 
-export const useApiService = () => {
+export const useApiService = <D,>() => {
   const cache = new CacheData();
   const apiService = new ApiService();
 
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<D[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,7 +15,7 @@ export const useApiService = () => {
 
     setLoading(true);
     try {
-      let response = await apiService.getData(endPoint);
+      let response = await apiService.getData<D>(endPoint);
       if (response) {
         setData(response);
 

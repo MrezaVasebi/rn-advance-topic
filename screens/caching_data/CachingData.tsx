@@ -1,12 +1,12 @@
 import AppLoading from "@/AppLoading";
 import { GoBackButton } from "@/buttons";
+import { UserCart } from "@/carts";
 import { colors } from "@/colors";
 import RootScreen from "@/RootScreen";
 import { AppText } from "@/texts";
 import React from "react";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import { PropsCachingData } from "screens/nav/FinalNavigation";
-import { UserCart } from "./components";
 import { useCachingData } from "./logic";
 
 const CachingData = (props: PropsCachingData) => {

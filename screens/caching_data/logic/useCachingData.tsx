@@ -1,10 +1,11 @@
 import { useApiService } from "@/useApiService";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useEffect, useState } from "react";
+import { User } from "types";
 
 export const useCachingData = () => {
   let { data, loading, error, fetchDataHandler, handleCacheData } =
-    useApiService();
+    useApiService<User>();
 
   const [isConnected, setIsConnected] = useState<"checking" | "true" | "false">(
     "checking"

@@ -1,7 +1,8 @@
 export default class ApiService {
   Url: string = "https://jsonplaceholder.typicode.com/";
 
-  async getData(endPoint: string) {
+  async getData<D>(endPoint: string) {
+    // D: dataType
     try {
       let response = await fetch(`${this.Url}${endPoint}`, {
         method: "GET",
@@ -11,7 +12,7 @@ export default class ApiService {
         },
       });
 
-      if (response.ok) return response.json();
+      if (response.ok) return (await response.json()) as D[];
       else return null;
     } catch (error) {
       console.log(error);
