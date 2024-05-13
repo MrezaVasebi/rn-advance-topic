@@ -32,7 +32,12 @@ const CheckBox = (props: ICheckBox & TouchableOpacityProps) => {
         <Entypo name="check" size={15} color={colors.white} />
       </View>
 
-      <AppText label={props.label} />
+      <AppText
+        label={props.label}
+        lblStyle={{
+          color: props.isChecked ? colors.purple : colors.black,
+        }}
+      />
     </TouchableOpacity>
   );
 };
