@@ -4,7 +4,7 @@ import React from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 
 interface IPagination {
-  onPress: (value: string) => void;
+  onPress: (value: "inc" | "dec") => void;
 }
 
 const Pagination = (props: IPagination) => {

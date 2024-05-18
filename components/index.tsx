@@ -1,4 +1,5 @@
 import AppLoading from "./AppLoading";
+import AppRow from "./AppRow";
 import CustomHeader from "./CustomHeader";
 import LoadingModal from "./LoadingModal";
 import MenuItem from "./MenuItem";
@@ -8,6 +9,7 @@ import RootScreen from "./RootScreen";
 
 export {
   AppLoading,
+  AppRow,
   CustomHeader,
   LoadingModal,
   MenuItem,
