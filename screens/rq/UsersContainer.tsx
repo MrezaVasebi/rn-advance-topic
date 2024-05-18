@@ -1,33 +1,46 @@
 import AppLoading from "@/AppLoading";
-import { CheckBox, GoBackButton } from "@/buttons";
+import { AppButton, CheckBox, GoBackButton } from "@/buttons";
 import { UserCart } from "@/carts";
+import { PropsUsersContainer } from "@/nav/FinalNavigation";
 import RootScreen from "@/RootScreen";
 import { useUsersContainer } from "@/useUsersContainer";
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-const UsersContainer = () => {
-  const navigation = useNavigation();
+const UsersContainer = (props: PropsUsersContainer) => {
   const { isLoading, data, handleEnableData, enableData } = useUsersContainer();
 
   return (
     <RootScreen>
-      <GoBackButton label="Users List" onPress={() => navigation.goBack()} />
+      <GoBackButton
+        label="Users List"
+        onPress={() => props.navigation.goBack()}
+      />
 
-      <View style={{ padding: 10, paddingTop: 15 }}>
+      <View style={styles.headerContainer}>
         <CheckBox
           label="Enable Data"
           isChecked={enableData}
           onPress={handleEnableData}
         />
+
+        {enableData && (
+          <AppButton
+            onPress={() => props.navigation.navigate("UsersTodos")}
+            label="Users Todos"
+            btnStyle={{
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          />
+        )}
       </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1 }}
       >
-        <View style={{ padding: 15, flex: 1 }}>
+        <View style={{ padding: 15, paddingTop: 5, flex: 1 }}>
           {isLoading ? (
             <AppLoading />
           ) : (
@@ -37,9 +50,21 @@ const UsersContainer = () => {
             ))
           )}
         </View>
+
+        {/* <Pagination onPress={(value) => {}} /> */}
       </ScrollView>
     </RootScreen>
   );
 };
 
 export default UsersContainer;
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    paddingVertical: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    justifyContent: "space-between",
+  },
+});

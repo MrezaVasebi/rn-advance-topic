@@ -1,5 +1,6 @@
 import { colors } from "@/colors";
 import RootScreen from "@/RootScreen";
+import { UsersTodos } from "@/rq";
 import UsersContainer from "@/rq/UsersContainer";
 import { AppText } from "@/texts";
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,6 +18,7 @@ import { Notification } from "screens/notification";
 type RootStackParamList = {
   Main: undefined;
   FormikApp: undefined;
+  UsersTodos: undefined;
   CachingData: undefined;
   Notification: undefined;
   UsersContainer: undefined;
@@ -36,6 +38,16 @@ export type PropsNotification = NativeStackScreenProps<
 export type PropsFormikApp = NativeStackScreenProps<
   RootStackParamList,
   "FormikApp"
+>;
+
+export type PropsUsersContainer = NativeStackScreenProps<
+  RootStackParamList,
+  "UsersContainer"
+>;
+
+export type PropsUsersTodos = NativeStackScreenProps<
+  RootStackParamList,
+  "UsersTodos"
 >;
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -98,6 +110,14 @@ const FinalNavigation = () => {
           <RootStack.Screen
             name="UsersContainer"
             component={UsersContainer}
+            options={({ navigation, route }) => ({
+              headerShown: false,
+            })}
+          />
+
+          <RootStack.Screen
+            name="UsersTodos"
+            component={UsersTodos}
             options={({ navigation, route }) => ({
               headerShown: false,
             })}

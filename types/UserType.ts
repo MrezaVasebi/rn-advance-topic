@@ -1,20 +1,20 @@
 export interface User {
   id: number;
   name: string;
-  username: string;
   email: string;
-  address: Address;
   phone: string;
   website: string;
+  username: string;
   company: Company;
+  address: Address;
 }
 
 export interface Address {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
   geo: Geo;
+  city: string;
+  suite: string;
+  street: string;
+  zipcode: string;
 }
 
 export interface Geo {
@@ -23,7 +23,14 @@ export interface Geo {
 }
 
 export interface Company {
+  bs: string;
   name: string;
   catchPhrase: string;
-  bs: string;
+}
+
+export interface UserTodo {
+  id: number;
+  title: string;
+  userId: number;
+  completed: boolean;
 }
