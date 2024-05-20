@@ -3,13 +3,16 @@ import React from "react";
 import {
   SafeAreaView,
   StatusBar,
+  StyleProp,
   StyleSheet,
   View,
   ViewProps,
+  ViewStyle,
 } from "react-native";
 
 interface IRootScreen extends ViewProps {
-  rootStyle?: object;
+  bgColor?: string;
+  rootStyle?: StyleProp<ViewStyle>;
 }
 
 const RootScreen = (props: IRootScreen) => {
@@ -17,11 +20,20 @@ const RootScreen = (props: IRootScreen) => {
     <>
       <StatusBar barStyle="light-content" />
       {/* this piece of code is for solving notch problem in android and ios mobiles. */}
-      <SafeAreaView style={{ flex: 0, backgroundColor: colors.bgColor }} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.bgColor }}>
+      <SafeAreaView
+        style={{ flex: 0, backgroundColor: props.bgColor ?? colors.bgColor }}
+      />
+
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: props.bgColor ?? colors.bgColor }}
+      >
         <View
           children={props.children}
-          style={{ ...styles.rootStyle, ...props.rootStyle }}
+          style={[
+            styles.rootStyle,
+            { backgroundColor: props.bgColor ?? colors.bgColor },
+            props.rootStyle,
+          ]}
         />
       </SafeAreaView>
     </>
@@ -33,6 +45,5 @@ export default RootScreen;
 const styles = StyleSheet.create({
   rootStyle: {
     flex: 1,
-    backgroundColor: colors.bgColor,
   },
 });

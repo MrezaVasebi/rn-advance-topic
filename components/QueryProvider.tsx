@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "context";
 import React, { ReactNode } from "react";
 
 interface IQueryProvider {
@@ -17,7 +18,9 @@ const QueryProvider = ({ client, children }: IQueryProvider) => {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>{children}</ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

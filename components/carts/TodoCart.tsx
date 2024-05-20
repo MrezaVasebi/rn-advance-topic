@@ -14,9 +14,7 @@ const TodoCart = ({ data }: { data: UserTodo }) => {
 
       <View
         style={{
-          width: 7,
-          height: "100%",
-          position: "absolute",
+          ...styles.completeStyle,
           backgroundColor: data.completed ? colors.green : colors.red,
         }}
       />
@@ -32,5 +30,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: "hidden",
     backgroundColor: colors.white,
+  },
+  completeStyle: {
+    width: 7,
+    height: "100%",
+    position: "absolute",
   },
 });

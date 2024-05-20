@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import qrKeys from "constant/qrKeys";
+import { useCallback } from "react";
 import { UserTodo } from "types";
 import { useApiService } from "./useApiService";
 
@@ -13,10 +14,13 @@ export const useUserTodos = () => {
       queryFn: async ({ pageParam, queryKey }) => {
         return fetchData(`todos?_page=${pageParam}`);
       },
-      select: (data) => {
-        // console.log(data.pageParams);
+      select: useCallback((data) => {
         return data.pages.flatMap((el) => el);
-      },
+      }, []),
+      // select: (data) => {
+      //   // console.log(data.pageParams);
+      //   return data.pages.flatMap((el) => el);
+      // },
       getNextPageParam: function (
         lastPage,
         allPages,

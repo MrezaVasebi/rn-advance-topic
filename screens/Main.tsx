@@ -2,10 +2,12 @@ import { colors } from "@/colors";
 import MenuItem from "@/MenuItem";
 import RootScreen from "@/RootScreen";
 import { AppText } from "@/texts";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ThemeContext } from "context";
+import React, { useContext } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 const Main = () => {
   let routes: { routeName: string; lbl: string }[] = [
@@ -19,10 +21,28 @@ const Main = () => {
   const { navigate } =
     useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
-    <RootScreen>
+    <RootScreen bgColor={theme === "light" ? colors.bgColor : colors.darkBlue}>
       <View style={styles.titleStyle}>
-        <AppText lblStyle={styles.lblTitle} label="React Native Advance" />
+        <AppText
+          lblStyle={{
+            ...styles.lblTitle,
+            color: theme === "light" ? colors.purple : colors.white,
+          }}
+          label="React Native Advance"
+        />
+
+        <TouchableOpacity
+          onPress={() => toggleTheme(theme === "light" ? "dark" : "light")}
+        >
+          <MaterialCommunityIcons
+            size={24}
+            name="theme-light-dark"
+            color={theme === "light" ? colors.black : colors.white}
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.mainContainer}>
@@ -46,10 +66,15 @@ export default Main;
 const styles = StyleSheet.create({
   titleStyle: {
     marginTop: 20,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    paddingHorizontal: 15,
+    justifyContent: "space-between",
   },
-  lblTitle: { fontSize: 20, color: colors.purple },
+  lblTitle: {
+    fontSize: 20,
+    color: colors.purple,
+  },
   mainContainer: {
     flex: 1,
     padding: 20,
