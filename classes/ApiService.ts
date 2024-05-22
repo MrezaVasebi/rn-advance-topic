@@ -18,4 +18,14 @@ export default class ApiService {
       console.log(error);
     }
   }
+
+  async postData(endPoint: string, option: RequestInit) {
+    try {
+      let response: Response = await fetch(`${this.Url}${endPoint}`, option);
+      if (response.ok) return await response.json();
+      else return null;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

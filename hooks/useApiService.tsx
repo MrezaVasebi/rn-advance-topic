@@ -19,6 +19,15 @@ export const useApiService = <D,>() => {
     }
   };
 
+  const sendData = async (endPoint: string, option: RequestInit) => {
+    try {
+      let response = await apiService.postData(endPoint, option);
+      return response;
+    } catch (error) {
+      throw new Error("Error in sending data...");
+    }
+  };
+
   const onFetchAndStoreDataInStorage = async (
     endPoint: string,
     storageKey: string
@@ -60,6 +69,7 @@ export const useApiService = <D,>() => {
   };
 
   return {
+    sendData,
     fetchData,
     data,
     loading,
