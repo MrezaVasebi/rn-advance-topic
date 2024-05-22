@@ -6,12 +6,22 @@ import { PropsUsersTodos } from "@/nav/FinalNavigation";
 import RootScreen from "@/RootScreen";
 import { AppText } from "@/texts";
 import { useUserTodos } from "@/useUserTodos";
-import React from "react";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import React, { useRef } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 
 const UsersTodos = (props: PropsUsersTodos) => {
-  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useUserTodos();
+  const flatRef = useRef<FlatList>(null);
+
+  const {
+    data,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasPreviousPage,
+    isFetchingPreviousPage,
+    fetchPreviousPage,
+  } = useUserTodos();
 
   return (
     <RootScreen>
@@ -22,7 +32,39 @@ const UsersTodos = (props: PropsUsersTodos) => {
         />
       </View>
 
-      <ScrollView
+      {isLoading ? (
+        <AppLoading />
+      ) : isFetchingNextPage ? (
+        <View style={styles.fetchingContainer}>
+          <AppText
+            label="Fetching next data..."
+            lblStyle={{ color: colors.purple }}
+          />
+        </View>
+      ) : isFetchingPreviousPage ? (
+        <View style={styles.fetchingContainer}>
+          <AppText
+            label="Fetching previous data..."
+            lblStyle={{ color: colors.purple }}
+          />
+        </View>
+      ) : (
+        <FlatList
+          data={data}
+          ref={flatRef}
+          onContentSizeChange={() =>
+            flatRef.current.scrollToEnd({ animated: true })
+          }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollStyle}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => <TodoCart data={item} />}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          onLayout={() => flatRef.current.scrollToEnd({ animated: true })}
+        />
+      )}
+
+      {/* <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollStyle}
       >
@@ -47,23 +89,27 @@ const UsersTodos = (props: PropsUsersTodos) => {
             );
           })
         )}
-      </ScrollView>
+      </ScrollView> */}
 
-      {hasNextPage && !isFetchingNextPage && (
-        <View
-          style={{
-            ...styles.nextBtnStyle,
-            left: Dimensions.get("screen").width / 2.5,
-          }}
-        >
+      <View style={styles.nextBtnStyle}>
+        {!isFetchingPreviousPage && (
           <AppButton
-            label="Next Page"
+            label="Previous"
             btnStyle={styles.btnStyle}
+            lblStyle={{ color: colors.white }}
+            onPress={() => fetchPreviousPage()}
+          />
+        )}
+
+        {hasNextPage && !isFetchingNextPage && (
+          <AppButton
+            label="Next"
             onPress={() => fetchNextPage()}
             lblStyle={{ color: colors.white }}
+            btnStyle={{ ...styles.btnStyle, marginLeft: 5 }}
           />
-        </View>
-      )}
+        )}
+      </View>
     </RootScreen>
   );
 };
@@ -82,11 +128,15 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   nextBtnStyle: {
+    left: 0,
+    right: 0,
     bottom: 20,
+    flexDirection: "row",
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
   },
   btnStyle: {
-    width: 100,
     backgroundColor: colors.purple,
   },
 });
