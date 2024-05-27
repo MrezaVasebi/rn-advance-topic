@@ -17,7 +17,17 @@ const UsersContainer = (props: PropsUsersContainer) => {
     error,
     isError,
     refetch,
+    isFetching,
+    fetchStatus,
   } = useUsersContainer();
+
+  // console.log(isLoading, isFetching, fetchStatus);
+
+  /*
+    fetchStatus === 'idle' -> not fetching data
+    fetchStatus === 'fetching' -> fetching data
+    fetchStatus === 'paused' -> cancel fetching data
+  */
 
   return (
     <RootScreen>
@@ -50,7 +60,7 @@ const UsersContainer = (props: PropsUsersContainer) => {
         contentContainerStyle={{ flexGrow: 1 }}
       >
         <View style={{ padding: 15, paddingTop: 5, flex: 1 }}>
-          {isLoading ? (
+          {isLoading || isFetching ? (
             <AppLoading />
           ) : isError ? (
             <View style={styles.errorContainer}>
@@ -65,7 +75,7 @@ const UsersContainer = (props: PropsUsersContainer) => {
           )}
         </View>
 
-        {/* <AppButton label="Refetch Api again" onPress={() => refetch()} /> */}
+        {/* <AppButton label="Press to fetch api" onPress={() => refetch()} /> */}
 
         {/* <Pagination onPress={(value) => {}} /> */}
       </ScrollView>

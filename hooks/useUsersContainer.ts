@@ -16,21 +16,35 @@ export const useUsersContainer = () => {
   const [page, setPage] = useState(1);
   const [enableData, setEnableData] = useState<boolean>(false);
 
-  const { isLoading, data, isError, error, refetch } = useQuery({
-    enabled: enableData,
-    placeholderData: keepPreviousData,
-    queryKey: [qrKeys.users, enableData],
-    queryFn: async ({ queryKey }) => {
-      return fetchData(queryKey[0] as string);
-      // return fetchData(`users?_page=${queryKey[2]}&_limit=1`);
-    },
-    // queryKey: ["users", enableData, page],
-    // select --> returned of queryFn response.
-    select: (data: User[]) => {
-      if (data && data.length !== 0) return data;
-      else return [];
-    },
-  });
+  const { isLoading, data, isError, error, refetch, isFetching, fetchStatus } =
+    useQuery({
+      enabled: enableData,
+      placeholderData: keepPreviousData,
+      queryKey: [qrKeys.users, enableData],
+      queryFn: async ({ queryKey }) => {
+        return fetchData(queryKey[0] as string);
+        // return fetchData(`users?_page=${queryKey[2]}&_limit=1`);
+      },
+      // queryKey: ["users", enableData, page],
+      // select --> returned of queryFn response.
+      select: (data: User[]) => {
+        if (data && data.length !== 0) return data;
+        else return [];
+      },
+      // when the page is mounted or focused, fetch function fired automatically.
+      // refetchOnMount: true,
+
+      // refetchOnWindowFocus: "always",
+
+      // refetch the function in that intervale(2000 millisecond) automatically
+      // refetchInterval: 2000,
+
+      // it causes refetch data when the page even is not mount. it dows it automatically in background.
+      // refetchIntervalInBackground: true,
+
+      // staleTime: 5 * 6 * 1000, // data will be staled after 1 min
+      // gcTime: 1 * 6 * 1000, // cache data for 5 min
+    });
 
   const handleEnableData = () => setEnableData(!enableData);
 
@@ -47,8 +61,14 @@ export const useUsersContainer = () => {
       return await sendData("", option);
     },
     onSuccess(data, variables, context) {
-      console.log({ data });
+      // updated data with special queryKey
       queryClient.invalidateQueries({ queryKey: [qrKeys.users] });
+
+      // add new data
+      queryClient.setQueryData([qrKeys.users], data);
+    },
+    onError(error, variables, context) {
+      throw new Error("Error in creating user...");
     },
   });
 
@@ -58,6 +78,8 @@ export const useUsersContainer = () => {
   // }
 
   return {
+    fetchStatus,
+    isFetching,
     refetch,
     handleEnableData,
     enableData,
